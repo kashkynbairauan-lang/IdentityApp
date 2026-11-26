@@ -1,0 +1,29 @@
+# ASP.NET Core Identity жобасы (5-апта тапсырмасы)
+
+Бұл жобада ASP.NET Core Identity арқылы тіркелу, кіру, шығу және рөлдік рұқсаттар (Admin, Student) толық іске асырылды.
+
+## Жобаны іске қосу қадамдары:
+1. Жобаны Visual Studio-да ашыңыз.
+2. `appsettings.json` ішіндегі дерекқор байланысын (Connection String) тексеріңіз.
+3. Package Manager Console-ға `Update-Database` командасын жазып, дерекқорды жаңартыңыз.
+4. Жобаны іске қосу үшін `F5` басыңыз.
+
+## Қолданылған нұсқалар:
+* **Framework:** .NET 10.0 (Компьютерде .NET 8 SDK болмағандықтан, жұмыс .NET 10 нұсқасында орындалды).
+* **Дерекқор:** SQL Server (LocalDB).
+* **Identity:** ASP.NET Core Identity (Individual Accounts).
+
+## Тестілеуге арналған деректер:
+* **Admin Email:** admin@example.com
+* **Admin Құпиясөз:** Admin@123
+* (Жаңа тіркелген пайдаланушылар автоматты түрде Student рөлін алады).
+
+## Кездескен мәселе және оның шешімі:
+**Мәселе 1:** Миграция жасау кезінде PowerShell-да `ErrorActionPreference` қатесі шықты. 
+**Шешім:** Терминал арқылы `dotnet ef database update` командасын қолданып, қателікті сәтті шештім.
+
+**Мәселе 2:** Жобаны іске қосқанда `UserManager` қатесі шықты.
+**Шешім:** `_LoginPartial.cshtml` және `_Layout.cshtml` файлдарында `IdentityUser`-ді өзіміз жасаған `ApplicationUser`-ге ауыстыру арқылы түзеттім.
+
+## Скриншоттар:
+Тапсырма бойынша 4 скриншот (Тіркелу, Кіру, Student шектеуі, Admin рұқсаты) жеке тапсырылды.
