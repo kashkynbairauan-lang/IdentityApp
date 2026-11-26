@@ -25,7 +25,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Рөлдерді және Admin қолданушысын жасау
+// Рөлдерді және Admin қолданушысын жасау (Құпиясөз енді appsettings.json-нан алынады)
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -40,12 +40,15 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    var adminEmail = "admin@example.com";
+    // Міне, құпия мәндер осы жерден алынып тұр
+    var adminEmail = builder.Configuration["AdminUser:Email"];
+    var adminPassword = builder.Configuration["AdminUser:Password"];
+
     var adminUser = await userManager.FindByEmailAsync(adminEmail);
     if (adminUser == null)
     {
         var newAdmin = new ApplicationUser { UserName = adminEmail, Email = adminEmail, FirstName = "Басты", LastName = "Админ", EmailConfirmed = true };
-        await userManager.CreateAsync(newAdmin, "Admin@123");
+        await userManager.CreateAsync(newAdmin, adminPassword);
         await userManager.AddToRoleAsync(newAdmin, "Admin");
     }
 }
