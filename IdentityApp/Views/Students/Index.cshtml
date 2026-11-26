@@ -1,0 +1,38 @@
+﻿@model IEnumerable<IdentityApp.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Студенттер тізімі";
+}
+
+<h2>Пайдаланушылар тізімі</h2>
+<hr />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Аты-жөні</th>
+            <th>Email</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Әрекеттер</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Бұл пайдаланушыны жоюға сенімдісіз бе?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Жою</button>
+                        </form>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
